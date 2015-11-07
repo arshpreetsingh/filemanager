@@ -4,6 +4,7 @@ from flask import Flask, render_template, redirect, request
 from filesystem import Folder, File
 from action import *
 from flask import request
+from flask import send_file
 from os import error
 
 app = Flask(__name__)
@@ -25,7 +26,11 @@ def index(path=''):
         context = my_file.apply_action(View)
         folder = Folder(app.config['FILES_ROOT'], my_file.get_path())
         if context == None:
-            return render_template('file_unreadable.html', folder=folder)
+            
+            raw_file = my_file.path 
+            
+            return send_file(raw_file)
+
         return render_template('file_view.html', text=context['text'], file=my_file, folder=folder)
 
 @app.route('/search', methods=['POST'])
