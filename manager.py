@@ -5,7 +5,6 @@ from filesystem import Folder, File
 from action import *
 from flask import request
 from flask import send_file
-#from os import error
 from os import error
 app = Flask(__name__)
 app.config.update(
